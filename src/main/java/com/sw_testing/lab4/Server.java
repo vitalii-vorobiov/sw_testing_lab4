@@ -77,6 +77,20 @@ public class Server {
 		}
 	}
 
+	@GetMapping("/is-copter-connected")
+	public String IsCopterConnected(@RequestParam(value = "remote-control-id", defaultValue = "") String remoteControlId, @RequestParam(value = "copter-id", defaultValue = "") String copterId) {
+		try {
+			var copter = coptersController.GetCopter(copterId);
+			if (copter.IsConnected(remoteControlId)) {
+				return String.format("Copter: %s is connected to RemoteControl: %s", copterId, remoteControlId);
+			} else {
+				return String.format("Copter: %s is not connected to RemoteControl: %s", copterId, remoteControlId);
+			}
+		} catch (Exception e) {
+			return e.getMessage();
+		}
+	}
+
 	@GetMapping("/get-copter-position")
 	public String GetCopterPosition(@RequestParam(value = "id", defaultValue = "") String id) {
 		try {
@@ -88,48 +102,68 @@ public class Server {
 	}
 
 	@GetMapping("/move-forward")
-	public String MoveForward(@RequestParam(value = "id", defaultValue = "") String id) throws RemoteControlNotConnectedException, CopterNotConnectedException, CopterOutOfRangeException {
+	public String MoveForward(@RequestParam(value = "id", defaultValue = "") String id) {
 		try {
-
+			var remoteControl = remoteControlsController.GetRemoteControl(id);
+			remoteControl.SendCommand(RemoteControlCommands.MOVE_FORWARD);
+			return remoteControl.GetCopter().GetPosition().toString();
 		} catch (Exception e) {
-
+			return e.getMessage();
 		}
-		var remoteControl = remoteControlsController.GetRemoteControl(id);
-		remoteControl.SendCommand(RemoteControlCommands.MOVE_FORWARD);
-		return remoteControl.GetCopter().GetPosition().toString();
 	}
 
-//	@GetMapping("/move-backward")
-//	public String MoveBackward() {
-//		remoteControll.SendCommand(RemoteControlCommands.MOVE_BACKWARD);
-//		return copter.GetPosition().toString();
-//	}
-//
-//	@GetMapping("/move-right")
-//	public String MoveRight() {
-//		remoteControll.SendCommand(RemoteControlCommands.MOVE_RIGHT);
-//		return copter.GetPosition().toString();
-//	}
-//
-//	@GetMapping("/move-left")
-//	public String MoveLeft() {
-//		remoteControll.SendCommand(RemoteControlCommands.MOVE_LEFT);
-//		return copter.GetPosition().toString();
-//	}
-//
-//	@GetMapping("/move-up")
-//	public String MoveUp() {
-//		try {
-//			remoteControll.SendCommand(RemoteControlCommands.MOVE_UP);
-//			return copter.GetPosition().toString();
-//		} catch (Exception e) {
-//			return e.getMessage();
-//		}
-//	}
-//
-//	@GetMapping("/move-down")
-//	public String MoveDown() throws RemoteControlNotConnectedException, CopterNotConnectedException, CopterOutOfRangeException {
-//		remoteControll.SendCommand(RemoteControlCommands.MOVE_DOWN);
-//		return copter.GetPosition().toString();
-//	}
+	@GetMapping("/move-backward")
+	public String MoveBackward(@RequestParam(value = "id", defaultValue = "") String id) {
+		try {
+			var remoteControl = remoteControlsController.GetRemoteControl(id);
+			remoteControl.SendCommand(RemoteControlCommands.MOVE_BACKWARD);
+			return remoteControl.GetCopter().GetPosition().toString();
+		} catch (Exception e) {
+			return e.getMessage();
+		}
+	}
+
+	@GetMapping("/move-right")
+	public String MoveRight(@RequestParam(value = "id", defaultValue = "") String id) {
+		try {
+			var remoteControl = remoteControlsController.GetRemoteControl(id);
+			remoteControl.SendCommand(RemoteControlCommands.MOVE_RIGHT);
+			return remoteControl.GetCopter().GetPosition().toString();
+		} catch (Exception e) {
+			return e.getMessage();
+		}
+	}
+
+	@GetMapping("/move-left")
+	public String MoveLeft(@RequestParam(value = "id", defaultValue = "") String id) {
+		try {
+			var remoteControl = remoteControlsController.GetRemoteControl(id);
+			remoteControl.SendCommand(RemoteControlCommands.MOVE_LEFT);
+			return remoteControl.GetCopter().GetPosition().toString();
+		} catch (Exception e) {
+			return e.getMessage();
+		}
+	}
+
+	@GetMapping("/move-up")
+	public String MoveUp(@RequestParam(value = "id", defaultValue = "") String id) {
+		try {
+			var remoteControl = remoteControlsController.GetRemoteControl(id);
+			remoteControl.SendCommand(RemoteControlCommands.MOVE_UP);
+			return remoteControl.GetCopter().GetPosition().toString();
+		} catch (Exception e) {
+			return e.getMessage();
+		}
+	}
+
+	@GetMapping("/move-down")
+	public String MoveDown(@RequestParam(value = "id", defaultValue = "") String id) throws RemoteControlNotConnectedException, CopterNotConnectedException, CopterOutOfRangeException {
+		try {
+			var remoteControl = remoteControlsController.GetRemoteControl(id);
+			remoteControl.SendCommand(RemoteControlCommands.MOVE_DOWN);
+			return remoteControl.GetCopter().GetPosition().toString();
+		} catch (Exception e) {
+			return e.getMessage();
+		}
+	}
 }
