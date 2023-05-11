@@ -1,6 +1,5 @@
 package com.sw_testing.lab4;
 
-import com.sw_testing.lab4.remote_control.RemoteControlCommands;
 import com.sw_testing.lab4.utils.Path;
 import com.sw_testing.lab4.utils.Position;
 import com.sw_testing.lab4.utils.SimulationScenario;
@@ -10,9 +9,6 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-
-import java.util.ArrayList;
-import java.util.HashMap;
 
 @SpringBootApplication
 public class Client {
