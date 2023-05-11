@@ -1,9 +1,7 @@
 package com.sw_testing.lab4;
 
-import com.sw_testing.lab4.copter.Copter;
 import com.sw_testing.lab4.copter.CoptersController;
 import com.sw_testing.lab4.exceptions.*;
-import com.sw_testing.lab4.remote_control.RemoteControl;
 import com.sw_testing.lab4.remote_control.RemoteControlCommands;
 import com.sw_testing.lab4.remote_control.RemoteControlsController;
 import org.springframework.boot.SpringApplication;
@@ -11,22 +9,25 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.rmi.NoSuchObjectException;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 @SpringBootApplication
 @RestController
 public class Server {
+	public static final Logger logger = LogManager.getLogger(Server.class);
 	private final RemoteControlsController remoteControlsController;
 	private final CoptersController coptersController;
 
 	public Server() {
 		remoteControlsController = new RemoteControlsController();
 		coptersController = new CoptersController();
+		logger.info("Initializing resources");
 	}
 
 	public static void main(String[] args) {
 		SpringApplication.run(Server.class, args);
+		logger.info("Starting Server");
 	}
 
 	@GetMapping("/create-remote-control")

@@ -1,5 +1,6 @@
 package com.sw_testing.lab4.remote_control;
 
+import com.sw_testing.lab4.Server;
 import com.sw_testing.lab4.copter.Copter;
 import com.sw_testing.lab4.exceptions.*;
 import com.sw_testing.lab4.utils.Position;
@@ -15,6 +16,7 @@ public class RemoteControl {
     public RemoteControl(int x, int y, int z) {
         ID = UUID.randomUUID().toString();
         position = new Position(x, y, z);
+        Server.logger.info("Creating new RemoteControl");
     }
 
     public String GetID() {

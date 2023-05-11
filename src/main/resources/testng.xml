@@ -1,0 +1,11 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Lab 4 Suite" verbose="1">
+    <test name="Test" preserve-order="true">
+        <classes>
+            <class name="com.sw_testing.lab4.Client" />
+        </classes>
+    </test>
+    <listeners>
+        <listener class-name="org.testng.reporters.EmailableReporter" />
+    </listeners>
+</suite>
